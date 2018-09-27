@@ -11,7 +11,7 @@
 
 APPTAG="[GEN_SLD]"                  # Just an arbitrary tag used in all output of this script to stdout (so you can tell what output came from this script)
 INPUT_IMAGE_FILE_EXTENSION="png"
-OUTPUT_FILE_NO_EXT="gallery"
+OUTPUT_FILE_NO_EXT="image_overview"
 TITLE="${PWD##*/}"                  # Use directory name as a guess for the title
 
 
@@ -20,9 +20,11 @@ echo "$APPTAG +++ GRID -- GeneRate Image Document here (run with '--help' for mo
 if [ -n "$1" ]; then
     if [ "$1" = "--help" -o "$1" = "-h" ]; then
         echo "$APPTAG GRID -- Generates a Markdown overview document from all images in the current directory. If available, uses 'pandoc' to generate more formats."
-        echo "$APPTAG Usage: $0 [<img_file_ext> [<outfile_bn>]]"
-        echo "$APPTAG    <img_file_ext>: the file extension of images that should be included. Example: 'jpg'. Defaults to 'png' if omitted."
-        echo "$APPTAG    <outfile_bn>: the base name (i.e., name without file extension) of the output gallery file. Example: 'my_image_gallery'. Defaults to 'gallery' if omitted."
+        echo "$APPTAG Usage: $0 [<img_file_ext> [<outfile_bn> [--append]]]"
+        echo "$APPTAG    <img_file_ext>: The file extension of images that should be included. Example: 'jpg'. Defaults to 'png' if omitted."
+        echo "$APPTAG    <outfile_bn>: The base name (i.e., name without file extension) of the output gallery file. Example: 'my_image_gallery'. Defaults to 'image_overview' if omitted."
+        echo "$APPTAG    --append or -a: Set append mode. Useful if you want to append to an existing gallery (you can set another file extension!). Output file must exuist in this mode."
+        echo "$APPTAG Example: $0 png my_gallery --append"
         exit 0
     fi
     INPUT_IMAGE_FILE_EXTENSION="$1"
@@ -33,15 +35,28 @@ if [ -n "$2" ]; then
     TITLE=$(echo "$2" | tr '-' ' ' | tr '_' ' ')                     # If the user supplied a file name, that may be an even better guess for the title (with underscores and dashes replaced by spaces)
 fi
 
+APPEND_MODE="NO"
+if [ "$3" = "--append" -o "$3" = "-a" ]; then
+    APPEND_MODE="YES"
+    echo "$APPTAG Using append mode."
+fi
 
 OUTPUT_FILE_MARKDOWN="${OUTPUT_FILE_NO_EXT}.md"
 OUTPUT_FILE_HTML="${OUTPUT_FILE_NO_EXT}.html"
 
 ##### Generate the markdown file #####
 
-## Generate header
-echo "# ${TITLE}" > "${OUTPUT_FILE_MARKDOWN}"
-echo "" >> "${OUTPUT_FILE_MARKDOWN}"
+## Clear file and generate header (unless in append mode)
+if [ "${APPEND_MODE}" = "NO" ]; then
+  echo "# ${TITLE}" > "${OUTPUT_FILE_MARKDOWN}"
+  echo "" >> "${OUTPUT_FILE_MARKDOWN}"
+else
+    ## In append mode, the output file has to exist.
+    if [ ! -f "${OUTPUT_FILE_MARKDOWN}" ]; then
+        echo "$APPTAG ERROR: Append mode requested, but output file '${OUTPUT_FILE_MARKDOWN}' does not exist. Exiting."
+        exit 1
+    fi
+fi
 
 ## Generate the headings and add the images
 
