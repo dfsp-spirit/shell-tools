@@ -12,8 +12,9 @@
 APPTAG="[GEN_SLD]"                  # Just an arbitrary tag used in all output of this script to stdout (so you can tell what output came from this script)
 INPUT_IMAGE_FILE_EXTENSION="png"
 OUTPUT_FILE_NO_EXT="image_overview"
-TITLE="${PWD##*/}"                  # Use directory name as a guess for the title
 
+DIR_NAME="${PWD##*/}"                                     # Get name of current directory (for /home/ts/projects/project_3, this gives project_3)
+TITLE=$(echo "${DIR_NAME}" | tr '-' ' ' | tr '_' ' ')     # Use directory name as a guess for the title (with underscores and dashes replaced by spaces)
 
 echo "$APPTAG +++ GRID -- GeneRate Image Document here (run with '--help' for more info) +++"
 
@@ -72,7 +73,7 @@ else
     for IMAGE_FILE in *.${INPUT_IMAGE_FILE_EXTENSION}
     do
         IMAGE_FILE_NO_EXTENSION="${IMAGE_FILE%.*}"
-        GUESSED_IMAGE_SECTION_TITLE=$(echo "${IMAGE_FILE_NO_EXTENSION}" | tr '-' ' ' | tr '_' ' ')            # Out guess is the filename, with underscores and dashes replaced by spaces
+        GUESSED_IMAGE_SECTION_TITLE=$(echo "${IMAGE_FILE_NO_EXTENSION}" | tr '-' ' ' | tr '_' ' ')            # Our guess is the image filename without extension, with underscores and dashes replaced by spaces
         echo "## ${GUESSED_IMAGE_SECTION_TITLE}" >> "${OUTPUT_FILE_MARKDOWN}"
         echo "![](${IMAGE_FILE})" >> "${OUTPUT_FILE_MARKDOWN}"
         echo "" >> "${OUTPUT_FILE_MARKDOWN}"
