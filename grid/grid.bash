@@ -24,7 +24,8 @@ if [ -n "$1" ]; then
         echo "$APPTAG    <img_file_ext>: The file extension of images that should be included. Example: 'jpg'. Defaults to 'png' if omitted."
         echo "$APPTAG    <outfile_bn>: The base name (i.e., name without file extension) of the output gallery file. Example: 'my_image_gallery'. Defaults to 'image_overview' if omitted."
         echo "$APPTAG    --append or -a: Set append mode. Useful if you want to append to an existing gallery (you can set another file extension!). Output file must exuist in this mode."
-        echo "$APPTAG Example: $0 png my_gallery --append"
+        echo "$APPTAG Examples: $0 jpg project_data"
+        echo "$APPTAG           $0 png project_data --append"
         exit 0
     fi
     INPUT_IMAGE_FILE_EXTENSION="$1"
@@ -88,4 +89,6 @@ if [ -n "$PANDOC_PATH" ]; then
     echo "$APPTAG Generating HTML format from Markdown file '${OUTPUT_FILE_MARKDOWN}', writing to file '${OUTPUT_FILE_HTML}'."
     pandoc -s --toc -o "${OUTPUT_FILE_HTML}" "${OUTPUT_FILE_MARKDOWN}"
     exit $?
+else
+    echo "$APPTAG Could not find 'pandoc' in PATH, skipped conversion from Markdown to other formats."
 fi
