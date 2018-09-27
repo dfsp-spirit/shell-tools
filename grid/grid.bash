@@ -9,7 +9,7 @@
 ## Usage: Place this in some directory on your $PATH (a typical directory is ~/bin/ I guess).
 ##        Then call it in the directory where you want the overview gallery to be created. No need for command line arguments, but you can use '--help' to see optional ones.
 
-APPTAG="[GEN_SLD]"                  # Just an arbitrary tag used in all output of this script to stdout (so you can tell what output came from this script)
+APPTAG="[GRID]"                  # Just an arbitrary tag used in all output of this script to stdout (so you can tell what output came from this script)
 INPUT_IMAGE_FILE_EXTENSION="png"
 OUTPUT_FILE_NO_EXT="image_overview"
 
@@ -20,7 +20,7 @@ echo "$APPTAG +++ GRID -- GeneRate Image Document here (run with '--help' for mo
 
 if [ -n "$1" ]; then
     if [ "$1" = "--help" -o "$1" = "-h" ]; then
-        echo "$APPTAG GRID -- Generates a Markdown overview document from all images in the current directory. If available, uses 'pandoc' to generate more formats."
+        echo "$APPTAG GRID generates a markdown overview document from all images in the current directory. If available, uses 'pandoc' to convert it to more formats."
         echo "$APPTAG Usage: $0 [<img_file_ext> [<outfile_bn> [--append]]]"
         echo "$APPTAG    <img_file_ext>: The file extension of images that should be included. Example: 'jpg'. Defaults to 'png' if omitted."
         echo "$APPTAG    <outfile_bn>: The base name (i.e., name without file extension) of the output gallery file. Example: 'my_image_gallery'. Defaults to 'image_overview' if omitted."
@@ -62,12 +62,13 @@ fi
 
 ## Generate the headings and add the images
 
-NUM_MATCHED_IMAGE_FILES=$(ls -1 *.${INPUT_IMAGE_FILE_EXTENSION} | wc -l)
+NUM_MATCHED_IMAGE_FILES=$(ls -1 *.${INPUT_IMAGE_FILE_EXTENSION} 2>/dev/null | wc -l)
 NUM_MATCHED_IMAGE_FILES=$(echo -e "${NUM_MATCHED_IMAGE_FILES}" | tr -d '[:space:]')    # The 'wc' command is broken under MacOS: it outputs whitespace in addition to the number (><), so we have to remove that.
 
 if [ ${NUM_MATCHED_IMAGE_FILES} -lt 1 ]; then
-    echo "$APPTAG WARNING: No image files with image file extension '${INPUT_IMAGE_FILE_EXTENSION}' found in current directory. Your gallery will be empty."
-    echo "$APPTAG NOTE   : You can run '$0 --help' to see optional command line arguments which allow you to set a custom file extension."
+    echo "$APPTAG ERROR: No image files with image file extension '${INPUT_IMAGE_FILE_EXTENSION}' found in current directory. Your gallery would be empty, not doing anything."
+    echo "$APPTAG You can run '$0 --help' to see optional command line arguments which allow you to set a custom file extension."
+    exit 1
 else
     echo "$APPTAG Found ${NUM_MATCHED_IMAGE_FILES} image files with requested extension '${INPUT_IMAGE_FILE_EXTENSION}' in current directory."
     for IMAGE_FILE in *.${INPUT_IMAGE_FILE_EXTENSION}
