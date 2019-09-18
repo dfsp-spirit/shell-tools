@@ -18,7 +18,8 @@ APPTAG="[RUN_RECONALL_PAR]"
 # See 'man parallel' for details.
 NUM_CONSECUTIVE_JOBS=8
 SUBJECTS="subject1 subject2 subject3 subject4 subject5 subject6 subject7 subject8 subject9 subject10 subject11 subject12 subject13 subject14 subject15 subject16"
-PER_SUBJECT_SCRIPT="${HOME}/bin/recon_per_subject.bash"
+EXEC_PATH_OF_THIS_SCRIPT=$(dirname $0)
+PER_SUBJECT_SCRIPT="${EXEC_PATH_OF_THIS_SCRIPT}/recon_per_subject.bash"
 ###### End of settings #####
 
 NUM_SUBJECTS=$(echo ${SUBJECTS} | wc -w  | tr -d '[:space:]')
