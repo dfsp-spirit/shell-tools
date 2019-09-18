@@ -41,5 +41,5 @@ if [ ! -x "${PER_SUBJECT_SCRIPT}" ]; then
     exit
 fi
 
-
-echo ${SUBJECTS} | tr ' ' '\n' | parallel --jobs ${NUM_CONSECUTIVE_JOBS} --workdir . --joblog logfile_parallel_run.txt "${PER_SUBJECT_SCRIPT} {}"
+DATE_TAG=$(date '+%Y-%m-%d_%H-%M-%S')
+echo ${SUBJECTS} | tr ' ' '\n' | parallel --jobs ${NUM_CONSECUTIVE_JOBS} --workdir . --joblog logfile_parallel_run_${DATE_TAG}.txt "${PER_SUBJECT_SCRIPT} {}"
