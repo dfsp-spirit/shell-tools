@@ -43,7 +43,7 @@ APPTAG="[RUN_RECONALL_PAR]"
 
 # NUM_CONSECUTIVE_JOBS: Number of consecutive GNU Parallel jobs. Note that 0 for 'as many as possible'. Maybe set something
 # a little bit less than the number of cores of your machine if you want to do something else while it runs.
-# See 'man parallel' for details.
+# See 'man parallel' for details. Under Linux, run `nproc` to see how many you have.
 NUM_CONSECUTIVE_JOBS=0
 
 ## SUBJECTS: a list of the subjects. You can put as many as you want, and at each timepoint, NUM_CONSECUTIVE_JOBS of them will be processed in parallel. A directory with the subject name must exist under SUBJECTS_DIR for each subject.
