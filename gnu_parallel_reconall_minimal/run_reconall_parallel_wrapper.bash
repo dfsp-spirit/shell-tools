@@ -19,7 +19,10 @@
 #           Hint: To make a script called 'script.bash' executable, run `chmod +x script.bash`.
 # 3) Make sure you have configured the subjects you want to use (setting 'SUBJECTS' below).
 #
-# 4) From any directory, run this wrapper script.
+# 4) From any directory, run this wrapper script. E.g., :
+#               cd $SUBJECTS_DIR
+#               /Volumes/scripts/gnu_parallel_reconall_minimal/run_reconall_parallel_wrapper.bash
+#
 
 APPTAG="[RUN_RECONALL_PAR]"
 
