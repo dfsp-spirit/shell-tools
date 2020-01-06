@@ -11,7 +11,20 @@
 # stated via ssh) or accidentely reboot your machine or close the terminal window.
 #
 #
-# Detailed usage instructions:
+#
+# I -- Expected contents of your $SUBJECTS_DIR (what your data should look like before running this script)
+#
+#   This script expects that you have a SUBJECTS_DIR full of NIFTI-files, each named after the subject ID.
+#   E.g.: $SUBJECTS_DIR/subject1.nii, $SUBJECTS_DIR/subject2.nii, ...
+#
+#   If you want to create the directory structure for FreeSurfer in the directory based on the NIFTI
+#   files, you can use this commands:
+#
+#          cd $SUBJECTS_DIR
+#          ls *.nii | parallel -S 4/: "recon-all -sd . -i {} -s {.}
+#
+#
+# II -- Detailed script usage instructions:
 #
 # 1) Set your FreeSurfer SUBJECTS_DIR to where your data is.
 #           Hint: If your data is in '/Volumes/data/study1', run `export SUBJECTS_DIR=/Volumes/data/study1`.
