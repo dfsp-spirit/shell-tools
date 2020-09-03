@@ -21,7 +21,7 @@
 #   files, you can use this commands:
 #
 #          cd $SUBJECTS_DIR
-#          ls *.nii | parallel -S 4/: "recon-all -sd . -i {} -s {.}
+#          ls *.nii | parallel -S 4/: "recon-all -sd . -i {} -s {.}"
 #
 #
 # II -- Detailed script usage instructions:
