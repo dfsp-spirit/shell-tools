@@ -17,8 +17,8 @@
 #   This script expects that you have a SUBJECTS_DIR full of NIFTI-files, each named after the subject ID.
 #   E.g.: $SUBJECTS_DIR/subject1.nii, $SUBJECTS_DIR/subject2.nii, ...
 #
-#   If you want to create the directory structure for FreeSurfer in the directory based on the NIFTI
-#   files, you can use this commands:
+#   You need to create the directory structure for FreeSurfer in the directory based on the NIFTI
+#   files. To do so, you can use this commands:
 #
 #          cd $SUBJECTS_DIR
 #          ls *.nii | parallel -S 4/: "recon-all -sd . -i {} -s {.}"
