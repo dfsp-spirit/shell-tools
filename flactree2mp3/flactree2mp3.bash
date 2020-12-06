@@ -25,3 +25,14 @@ if [ ! -d "$TARGET_TREE" ]; then
   echo "ERROR: Target dir '$TARGET_TREE' does not exist."
   exit 0
 fi
+
+
+# Convert all FLAC files in target tree to MP3
+cd "${SOURCE_TREE}"
+find . -name '*.flac' |
+while read filename
+do
+    dirn=$(dirname "$filename")
+    fn=$(basename "$filename")
+    echo "$dirn: $fn: $filename"    # ... or any other command using $filename
+done
