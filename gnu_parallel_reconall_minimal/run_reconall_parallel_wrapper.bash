@@ -23,6 +23,11 @@
 #          cd $SUBJECTS_DIR
 #          ls *.nii | parallel -S 4/: "recon-all -sd . -i {} -s {.}"
 #
+#   If you have nii.gz files of ngz files (gzipped NIFTI), you will have to extract them first or adapt the
+#   commands below. To extract them, you can run (in BASH):
+#
+#          cd $SUBJECTS_DIR
+#          for f in *.gz; do gunzip "$f"; done
 #
 # II -- Detailed script usage instructions:
 #
