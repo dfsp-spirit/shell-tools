@@ -10,6 +10,18 @@
 # continue running in the background if you lose connection to the host (when
 # stated via ssh) or accidentely reboot your machine or close the terminal window.
 #
+# #####  UPDATE (2022-03-21): #####
+# I decided to make the full version of all my FreeSurfer parallel scripts for 
+# various tasks publicly available at: 
+#
+#      https://github.com/dfsp-spirit/freesurfer_parallel_scripts/
+#
+# You should use the script cross-sectional/preproc_reconall_parallel.bash from that repo
+# instead of this script (and also check out the other scripts in there).
+#
+# There is nothing wrong with using the one from this repo, but the other one can do more.
+#
+# ##### END OF UPDATE MESSAGE #####
 #
 #
 # I -- Expected contents of your $SUBJECTS_DIR (what your data should look like before running this script)
